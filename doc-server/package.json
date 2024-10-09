@@ -1,0 +1,20 @@
+{
+  "name": "doc-server",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "lint:openapi": "redocly lint ./static/openapi.yaml",
+    "dev": "bun run index.ts",
+    "build": "bun build index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@redocly/cli": "^1.24.0"
+  }
+}
+

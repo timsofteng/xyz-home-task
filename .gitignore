@@ -1,0 +1,5 @@
+tmp/
+*.vim
+node_modules/
+dist/
+bin/

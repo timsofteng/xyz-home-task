@@ -1,0 +1,7 @@
+package: oapiCodegen
+output: internal/oapiCodegen/server.gen.go
+generate:
+  embedded-spec: true
+  models: true
+  std-http-server: true
+  strict-server: true
