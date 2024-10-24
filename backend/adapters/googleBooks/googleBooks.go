@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/timsofteng/xyz-home-task/internal/e"
+	"github.com/timsofteng/xyz-home-task/internal/errors"
 	"github.com/timsofteng/xyz-home-task/internal/logger"
 	"github.com/timsofteng/xyz-home-task/service"
 )
@@ -110,7 +110,7 @@ func (r *Repo) GetBooks(ctx context.Context, query string) ([]service.Book, erro
 		logger.Debug("bad code", "status", res.StatusCode)
 		return nil, fmt.Errorf(
 			"error from api: %w",
-			e.MapHTTPStatusCodeToInternalError(res.StatusCode))
+			apperrors.MapHTTPStatusCodeToInternalError(res.StatusCode))
 	}
 
 	logger.Debug("resp", "body", apiResponse)

@@ -3,8 +3,8 @@ module github.com/timsofteng/xyz-home-task
 go 1.22.5
 
 require (
-	github.com/getkin/kin-openapi v0.127.0
-	github.com/google/uuid v1.6.0
+	github.com/caarlos0/env/v11 v11.2.2
+	github.com/getkin/kin-openapi v0.128.0
 	github.com/oapi-codegen/nethttp-middleware v1.0.2
 	github.com/oapi-codegen/runtime v1.1.1
 	github.com/stretchr/testify v1.9.0
@@ -16,6 +16,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/go-openapi/jsonpointer v0.21.0 // indirect
 	github.com/go-openapi/swag v0.23.0 // indirect
+	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/invopop/yaml v0.3.1 // indirect
 	github.com/josharian/intern v1.0.0 // indirect

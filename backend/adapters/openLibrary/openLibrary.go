@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/timsofteng/xyz-home-task/internal/e"
+	"github.com/timsofteng/xyz-home-task/internal/errors"
 	"github.com/timsofteng/xyz-home-task/internal/logger"
 )
 
@@ -53,7 +53,7 @@ func (c *Client) getBookInfoByISBN(ctx context.Context, isbn string) (*BookInfo,
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf(
 			"failed to get book info: %w",
-			e.MapHTTPStatusCodeToInternalError(resp.StatusCode))
+			apperrors.MapHTTPStatusCodeToInternalError(resp.StatusCode))
 	}
 
 	var result map[string]BookInfo
@@ -89,7 +89,7 @@ func (c *Client) getRevision(ctx context.Context, key string) (*int, error) {
 		logger.Debug("request with bad code", "status", resp.StatusCode)
 		return nil, fmt.Errorf(
 			"failed to get revision: %w",
-			e.MapHTTPStatusCodeToInternalError(resp.StatusCode))
+			apperrors.MapHTTPStatusCodeToInternalError(resp.StatusCode))
 	}
 
 	var bookInfo BookInfo

@@ -11,8 +11,8 @@ import (
 
 	"github.com/timsofteng/xyz-home-task/adapters/googleBooks"
 	"github.com/timsofteng/xyz-home-task/adapters/httpHandlers"
-	"github.com/timsofteng/xyz-home-task/adapters/openLibrary"
-	"github.com/timsofteng/xyz-home-task/internal/env"
+	openlibrary "github.com/timsofteng/xyz-home-task/adapters/openLibrary"
+	"github.com/timsofteng/xyz-home-task/config"
 	"github.com/timsofteng/xyz-home-task/internal/httpServer"
 	"github.com/timsofteng/xyz-home-task/internal/logger"
 	"github.com/timsofteng/xyz-home-task/service"
@@ -28,11 +28,12 @@ func main() {
 }
 
 func run() error {
-	host := env.MustGet("HOST")
-	httpServerPort := env.MustGet("HTTP_SERVER_PORT")
+	cfg, err := config.ReadConfig()
+	if err != nil {
+		return fmt.Errorf("failed to read config: %w", err)
+	}
 
-	logLevel := os.Getenv("LOG_LEVEL")
-	logger := logger.New(logLevel)
+	logger := logger.New(cfg.LogLevel)
 
 	openLibClient := openlibrary.New(logger)
 
@@ -49,9 +50,8 @@ func run() error {
 	server, err := httpServer.New(
 		ctx,
 		logger, httpHandlers,
-		httpServer.Cfg{Host: host, Port: httpServerPort},
+		httpServer.Cfg{Host: cfg.HTTPServerHost, Port: cfg.HTTPServerPort},
 	)
-
 	if err != nil {
 		return fmt.Errorf("failed to create http server: %w", err)
 	}
@@ -59,8 +59,8 @@ func run() error {
 	g.Go(server.Start)
 	logger.Info(
 		"http server has been started",
-		"host", host,
-		"port", httpServerPort,
+		"host", cfg.HTTPServerHost,
+		"port", cfg.HTTPServerPort,
 	)
 
 	g.Go(func() error {

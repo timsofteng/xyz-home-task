@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	middleware "github.com/oapi-codegen/nethttp-middleware"
-	"github.com/timsofteng/xyz-home-task/internal/e"
+	"github.com/timsofteng/xyz-home-task/internal/errors"
 	"github.com/timsofteng/xyz-home-task/internal/logger"
 )
 
@@ -43,7 +43,7 @@ func responseErrorHandler(
 ) {
 	w.Header().Set("Content-Type", "application/json")
 
-	w.WriteHeader(e.MapInternalErrorToHTTPStatusCode(err))
+	w.WriteHeader(apperrors.MapInternalErrorToHTTPStatusCode(err))
 
 	encodeErr := json.NewEncoder(w).Encode(err)
 	if encodeErr != nil {
